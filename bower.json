@@ -1,0 +1,29 @@
+{
+  "name": "Webcomix",
+  "description": "A comic book reader in your web-browser",
+  "main": "index.html",
+  "authors": [
+    "woshilapin <woshilapin@tuziwo.info>"
+  ],
+  "license": "GPL-3.0",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "jquery": "^3.0.0",
+    "jszip": "^3.0.0",
+    "requirejs": "^2.2.0",
+    "jszip-utils": "^0.0.2",
+    "font-awesome": "fontawesome#^4.6.3"
+  },
+  "resolutions": {
+    "jquery": "^3.0.0"
+  }
+}

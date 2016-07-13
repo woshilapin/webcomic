@@ -1,0 +1,17 @@
+{
+	"name": "Webcomix",
+	"version": "0.0.1",
+	"description": "A comic book reader in your web-browser",
+	"license": "GPL-3.0",
+	"private": true,
+	"authors": {
+		"name": "woshilapin",
+		"email": "woshilapin@tuziwo.info"
+	},
+	"dependencies": {
+		"bootstrap": "3.3.x",
+		"jquery": "3.x",
+		"jszip": "3.x",
+		"requirejs": "2.2.x"
+	}
+}
