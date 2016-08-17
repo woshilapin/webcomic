@@ -59,6 +59,8 @@ requirejs(['jquery', 'jszip', 'jszip-utils'], function ($, JSZip, JSZipUtils) {
 		} else {
 			loadStrip(files[pagenumber], 'current-page');
 			$('#current-page').data('pagenumber', pagenumber);
+			$('#previous-page > img').attr('src', '');
+			$('#next-page > img').attr('src', '');
 			if (pagenumber > 0) {
 				loadStrip(files[pagenumber-1], 'previous-page');
 			}
