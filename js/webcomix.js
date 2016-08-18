@@ -68,16 +68,49 @@ requirejs(['jquery', 'jszip', 'jszip-utils'], function ($, JSZip, JSZipUtils) {
 				loadStrip(files[pagenumber+1], 'next-page');
 			}
 		}
-	}
-	JSZipUtils.getBinaryContent("comics/test.cbz", function(err, data) {
+	};
+	var zoom = function () {
+		var $page = $('#current-page');
+		$page.toggleClass('full-screen');
+		var $strip = $page.find('img');
+		$strip.css('object-position', '0px 0px');
+		var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+		$(document).on('keydown', function(e) {
+			var height = parseInt($strip.css('height'));
+			var objectPosition = $strip.css('object-position').split(' ');
+			var offset = Math.abs(parseInt(objectPosition[1]));
+			var step = 100; // Increment for vertical scrolling in px
+			if (e.key === 'j' || e.key === 'ArrowDown') {
+				if (offset + step > height - viewportHeight) {
+					offset = height - viewportHeight;
+				} else {
+					offset += step;
+				}
+			} else if (e.key === 'k' || e.key === 'ArrowUp') {
+				if (offset - step < 0) {
+					offset = 0;
+				} else {
+					offset -= step;
+				}
+			} else if (e.key === 'h' || e.key === 'ArrowLeft' || e.key === 'l' || e.key === 'ArrowRight') {
+				offset = 0;
+			}
+			objectPosition[1] = '-' + offset + 'px';
+			console.log(objectPosition.join(' '));
+			$strip.css('object-position', objectPosition.join(' '));
+		});
+	};
+	JSZipUtils.getBinaryContent("comics/sunstone.vol-1.cbz", function(err, data) {
 		var fileblob = data;
 		JSZip.loadAsync(fileblob).then(function(cbz) {
-			document.addEventListener('keydown', function (e) {
+			$(document).on('keydown', function (e) {
 				var pagenumber = parseInt($('#current-page').data('pagenumber'));
-				if (e.key === "ArrowLeft") {
+				if (e.key === 'ArrowLeft' || e.key === 'h') {
 					loadStrips(cbz, pagenumber-1);
-				} else if (e.key === "ArrowRight") {
+				} else if (e.key === 'ArrowRight' || e.key === 'l') {
 					loadStrips(cbz, pagenumber+1);
+				} else if (e.key === ' ') {
+					zoom();
 				}
 			});
 			cbz.file("ComicInfo.xml").async("string").then(function(xml) {

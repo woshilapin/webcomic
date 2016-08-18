@@ -69,6 +69,16 @@ body {
 	height: 100vh;
 }
 
+#content #strip #current-page.full-screen img {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
+	object-position: '0px 0px';
+	z-index: 100;
+}
+
 #content #strip #previous-page,
 #content #strip #next-page {
 	opacity: 0.33;
