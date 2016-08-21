@@ -7,7 +7,7 @@ body {
 #pagenumber {
 	display: none;
 	position: fixed;
-	top: 1ex;
+	bottom: 1ex;
 	left: 1ex;
 	padding: 1ex;
 	padding-top: 0.5ex;
