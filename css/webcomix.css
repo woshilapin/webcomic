@@ -4,11 +4,9 @@ body {
 	font-family: Helvetica;
 }
 
-#pagenumber {
+header > div {
 	display: none;
 	position: fixed;
-	bottom: 1ex;
-	left: 1ex;
 	padding: 1ex;
 	padding-top: 0.5ex;
 	padding-bottom: 0.75ex;
@@ -17,6 +15,15 @@ body {
 	font-size: 200%;
 	z-index: 1000;
 	border-radius: 16px;
+}
+
+#pagenumber {
+	bottom: 1ex;
+	left: 1ex;
+}
+#percentage {
+	bottom: 1ex;
+	right: 1ex;
 }
 
 #show-hide {

@@ -64,6 +64,16 @@ requirejs(['jquery', 'jszip', 'jszip-utils'], function ($, JSZip, JSZipUtils) {
 		};
 		setTimeout(fades, 1600);
 	};
+	var showPercentage = function (percentage) {
+		var $percentage = $('#percentage');
+		var p = Math.floor(percentage*100);
+		$percentage.text(p + ' %');
+		$percentage.show();
+		var fades = function() {
+			$percentage.fadeOut(400);
+		};
+		setTimeout(fades, 1600);
+	};
 	var loadStrips = function (cbz, pagenumber) {
 		var files = cbz.file(/[0-9]+/);
 		if (pagenumber < 0 || pagenumber >= files.length) {
@@ -92,18 +102,21 @@ requirejs(['jquery', 'jszip', 'jszip-utils'], function ($, JSZip, JSZipUtils) {
 			var objectPosition = $strip.css('object-position').split(' ');
 			var offset = Math.abs(parseInt(objectPosition[1]));
 			var step = 100; // Increment for vertical scrolling in px
+			var percent = offset/(height-viewportHeight);
 			if (e.key === 'j' || e.key === 'ArrowDown') {
 				if (offset + step > height - viewportHeight) {
 					offset = height - viewportHeight;
 				} else {
 					offset += step;
 				}
+				showPercentage(percent);
 			} else if (e.key === 'k' || e.key === 'ArrowUp') {
 				if (offset - step < 0) {
 					offset = 0;
 				} else {
 					offset -= step;
 				}
+				showPercentage(percent);
 			} else if (e.key === 'h' || e.key === 'ArrowLeft' || e.key === 'l' || e.key === 'ArrowRight') {
 				offset = 0;
 			}
