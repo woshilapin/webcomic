@@ -4,6 +4,21 @@ body {
 	font-family: Helvetica;
 }
 
+#pagenumber {
+	display: none;
+	position: fixed;
+	top: 1ex;
+	left: 1ex;
+	padding: 1ex;
+	padding-top: 0.5ex;
+	padding-bottom: 0.75ex;
+	background: rgba(128, 128, 128, 0.5);
+	color: white;
+	font-size: 200%;
+	z-index: 1000;
+	border-radius: 16px;
+}
+
 #show-hide {
 	position: fixed;
 	top: 0;

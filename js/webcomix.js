@@ -52,13 +52,25 @@ requirejs(['jquery', 'jszip', 'jszip-utils'], function ($, JSZip, JSZipUtils) {
 			});
 		}
 	};
+	var showPageNumber = function () {
+		var $pagenumber = $('#pagenumber');
+		var $currentpage = $('#current-page');
+		var pagenumber = parseInt($currentpage.data('pagenumber')) + 1;
+		var pages = parseInt($currentpage.data('pages'));
+		$pagenumber.text(pagenumber + ' / ' + pages);
+		$pagenumber.show();
+		var fades = function() {
+			$pagenumber.fadeOut(400);
+		};
+		setTimeout(fades, 1600);
+	};
 	var loadStrips = function (cbz, pagenumber) {
 		var files = cbz.file(/[0-9]+/);
 		if (pagenumber < 0 || pagenumber >= files.length) {
 			return;
 		} else {
 			loadStrip(files[pagenumber], 'current-page');
-			$('#current-page').data('pagenumber', pagenumber);
+			$('#current-page').data('pagenumber', pagenumber).data('pages', files.length);
 			$('#previous-page > img').attr('src', '');
 			$('#next-page > img').attr('src', '');
 			if (pagenumber > 0) {
@@ -100,16 +112,19 @@ requirejs(['jquery', 'jszip', 'jszip-utils'], function ($, JSZip, JSZipUtils) {
 			$strip.css('object-position', objectPosition.join(' '));
 		});
 	};
-	JSZipUtils.getBinaryContent("comics/sunstone.vol-1.cbz", function(err, data) {
+	JSZipUtils.getBinaryContent("comics/sunstone.vol-2.cbz", function(err, data) {
 		var fileblob = data;
 		JSZip.loadAsync(fileblob).then(function(cbz) {
 			$(document).on('keydown', function (e) {
 				var pagenumber = parseInt($('#current-page').data('pagenumber'));
 				if (e.key === 'ArrowLeft' || e.key === 'h') {
 					loadStrips(cbz, pagenumber-1);
+					showPageNumber();
 				} else if (e.key === 'ArrowRight' || e.key === 'l') {
 					loadStrips(cbz, pagenumber+1);
+					showPageNumber();
 				} else if (e.key === ' ') {
+					showPageNumber();
 					zoom();
 				}
 			});
