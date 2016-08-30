@@ -56,10 +56,15 @@ funnels.js.final = funnels.js.original;
 funnels.misc.comics = plugins.funnel('comics', {
 	destDir: 'comics'
 });
+funnels.misc.vendor = plugins.funnel('src', {
+	srcDir: 'vendor',
+	destDir: 'vendor'
+});
 
 module.exports = plugins.merge([
 		funnels.html.final,
 		funnels.css.final,
 		funnels.js.final,
+		funnels.misc.vendor,
 		funnels.misc.comics
 ], 'Final merge');

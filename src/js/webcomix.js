@@ -1,8 +1,8 @@
 requirejs.config({
 	"paths": {
-		"jquery": "js/lib/jquery/dist/jquery",
-		"jszip": "js/lib/jszip/dist/jszip",
-		"jszip-utils": "js/lib/jszip-utils/dist/jszip-utils"
+		"jquery": "vendor/jquery/dist/jquery",
+		"jszip": "vendor/jszip/dist/jszip",
+		"jszip-utils": "vendor/jszip-utils/dist/jszip-utils"
 	}
 });
 requirejs(['jquery', 'jszip', 'jszip-utils'], function ($, JSZip, JSZipUtils) {
