@@ -1,8 +1,8 @@
 requirejs.config({
 	"paths": {
-		"jquery": "lib/jquery/dist/jquery",
-		"jszip": "lib/jszip/dist/jszip",
-		"jszip-utils": "lib/jszip-utils/dist/jszip-utils"
+		"jquery": "js/lib/jquery/dist/jquery",
+		"jszip": "js/lib/jszip/dist/jszip",
+		"jszip-utils": "js/lib/jszip-utils/dist/jszip-utils"
 	}
 });
 requirejs(['jquery', 'jszip', 'jszip-utils'], function ($, JSZip, JSZipUtils) {
@@ -125,7 +125,7 @@ requirejs(['jquery', 'jszip', 'jszip-utils'], function ($, JSZip, JSZipUtils) {
 			$strip.css('object-position', objectPosition.join(' '));
 		});
 	};
-	JSZipUtils.getBinaryContent("comics/sunstone.vol-2.cbz", function(err, data) {
+	JSZipUtils.getBinaryContent("comics/sunstone.vol-3.cbz", function(err, data) {
 		var fileblob = data;
 		JSZip.loadAsync(fileblob).then(function(cbz) {
 			$(document).on('keydown', function (e) {

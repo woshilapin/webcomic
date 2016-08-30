@@ -1,17 +1,27 @@
 {
-	"name": "Webcomix",
-	"version": "0.0.1",
-	"description": "A comic book reader in your web-browser",
-	"license": "GPL-3.0",
-	"private": true,
-	"authors": {
-		"name": "woshilapin",
-		"email": "woshilapin@tuziwo.info"
-	},
-	"dependencies": {
-		"bootstrap": "3.3.x",
-		"jquery": "3.x",
-		"jszip": "3.x",
-		"requirejs": "2.2.x"
-	}
+  "name": "Webcomix",
+  "version": "0.0.1",
+  "description": "A comic book reader in your web-browser",
+  "license": "GPL-3.0",
+  "private": true,
+  "authors": {
+    "name": "woshilapin",
+    "email": "woshilapin@tuziwo.info"
+  },
+  "dependencies": {
+    "bootstrap": "3.3.x",
+    "jquery": "3.x",
+    "jszip": "3.x",
+    "requirejs": "2.2.x"
+  },
+  "devDependencies": {
+    "broccoli": "^0.16.9",
+    "broccoli-csslint": "^1.0.0",
+    "broccoli-cssnano": "^2.1.0",
+    "broccoli-funnel": "^1.0.6",
+    "broccoli-jshint": "^2.1.0",
+    "broccoli-merge-trees": "^1.1.4",
+    "broccoli-postcss": "^3.0.1",
+    "postcss-cssnext": "^2.7.0"
+  }
 }
