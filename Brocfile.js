@@ -1,5 +1,6 @@
 plugins = {};
 plugins.babel = require('broccoli-babel-transpiler');
+plugins.bower = require('broccoli-bower');
 plugins.browserify = require('broccoli-fast-browserify');
 plugins.concat = require('broccoli-concat');
 plugins.csslint = require('broccoli-csslint');
@@ -11,6 +12,7 @@ plugins.merge = require('broccoli-merge-trees');
 plugins.postcss = require('broccoli-postcss');
 
 const src = 'src';
+const vendor = 'vendor';
 
 funnels = {
 	html: {},
@@ -81,8 +83,7 @@ funnels.js.final = funnels.js.browserify;
 funnels.misc.comics = plugins.funnel('comics', {
 	destDir: 'comics'
 });
-funnels.misc.vendor = plugins.funnel('src', {
-	srcDir: 'vendor',
+funnels.misc.vendor = plugins.funnel(vendor, {
 	destDir: 'vendor'
 });
 

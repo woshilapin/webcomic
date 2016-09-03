@@ -6,14 +6,15 @@
     "woshilapin <woshilapin@tuziwo.info>"
   ],
   "license": "GPL-3.0",
-  "homepage": "",
+  "homepage": "https://github.com/woshilapin/webcomix",
   "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "vendor"
   ],
   "dependencies": {
     "bootstrap": "^3.3.6",
@@ -22,8 +23,5 @@
     "requirejs": "^2.2.0",
     "jszip-utils": "^0.0.2",
     "font-awesome": "fontawesome#^4.6.3"
-  },
-  "resolutions": {
-    "jquery": "^3.0.0"
   }
 }
