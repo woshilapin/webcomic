@@ -8,18 +8,26 @@
     "name": "woshilapin",
     "email": "woshilapin@tuziwo.info"
   },
+  "scripts": {
+    "start": "broccoli serve"
+  },
   "dependencies": {
     "bootstrap": "3.3.x",
     "jquery": "3.x",
     "jszip": "3.x",
-    "requirejs": "2.2.x"
+    "jszip-utils": "0.0.2"
   },
   "devDependencies": {
     "broccoli": "^0.16.9",
+    "broccoli-babel-transpiler": "^5.6.1",
+    "broccoli-browserify": "^0.1.0",
+    "broccoli-concat": "^2.3.4",
     "broccoli-csslint": "^1.0.0",
     "broccoli-cssnano": "^2.1.0",
+    "broccoli-fast-browserify": "^0.2.11",
     "broccoli-funnel": "^1.0.6",
     "broccoli-jshint": "^2.1.0",
+    "broccoli-lint-eslint": "^3.1.0",
     "broccoli-merge-trees": "^1.1.4",
     "broccoli-postcss": "^3.0.1",
     "postcss-cssnext": "^2.7.0"

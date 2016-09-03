@@ -1,10 +1,14 @@
 plugins = {};
-plugins.funnel = require('broccoli-funnel');
-plugins.merge = require('broccoli-merge-trees');
-plugins.jshint = require('broccoli-jshint');
-plugins.postcss = require('broccoli-postcss');
-plugins.cssnano = require('broccoli-cssnano');
+plugins.babel = require('broccoli-babel-transpiler');
+plugins.browserify = require('broccoli-fast-browserify');
+plugins.concat = require('broccoli-concat');
 plugins.csslint = require('broccoli-csslint');
+plugins.cssnano = require('broccoli-cssnano');
+plugins.eslint = require('broccoli-lint-eslint');
+plugins.funnel = require('broccoli-funnel');
+plugins.jshint = require('broccoli-jshint');
+plugins.merge = require('broccoli-merge-trees');
+plugins.postcss = require('broccoli-postcss');
 
 const src = 'src';
 
@@ -32,7 +36,7 @@ funnels.css.postcss = plugins.postcss(funnels.css.original, {
 		module: require('postcss-cssnext'),
 		options: {
 			map: {
-				inline: false
+				inline: true
 			}
 		}
 	}]
@@ -50,7 +54,28 @@ funnels.js.original = plugins.funnel(src, {
 	srcDir: 'js',
 	destDir: 'js'
 });
-funnels.js.final = funnels.js.original;
+// ESlint
+funnels.js.eslint = plugins.eslint(funnels.js.original, {
+	options: {
+		configFile: '.eslintrc'
+	}
+});
+// Babel
+funnels.js.babel = plugins.babel(funnels.js.eslint, {
+	browserPolyfill: true,
+	sourceMap: 'both'
+});
+funnels.js.browserify = plugins.browserify(funnels.js.babel, {
+	bundles: {
+		'js/webcomix.js': {
+			entryPoints: ['./js/webcomix.js']
+		}
+	},
+	browserify: {
+		debug: true
+	}
+});
+funnels.js.final = funnels.js.browserify;
 ///////
 // Misc
 funnels.misc.comics = plugins.funnel('comics', {
