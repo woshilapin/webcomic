@@ -2,6 +2,7 @@ import $ from 'jquery';
 import JSZip from 'jszip';
 import JSZipUtils from 'jszip-utils';
 
+$(document).ready(function() {
 var $progress = $('#content #progressbar');
 var $strip = $('#strip');
 var $metadata = $('#metadata');
@@ -150,4 +151,5 @@ JSZipUtils.getBinaryContent("comics/sunstone.vol-3.cbz", function(err, data) {
 			loadStrips(cbz, pagenumber);
 		});
 	});
+});
 });
