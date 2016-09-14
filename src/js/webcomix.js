@@ -1,6 +1,9 @@
 import $ from 'jquery';
 import JSZip from 'jszip';
 import JSZipUtils from 'jszip-utils';
+import Comic from 'models/Comic.js';
+
+var comic = new Comic("comics/sunstone.vol-4.cbz");
 
 $(document).ready(function() {
 var $progress = $('#content #progressbar');
@@ -121,7 +124,7 @@ var zoom = function () {
 		$strip.css('object-position', objectPosition.join(' '));
 	});
 };
-JSZipUtils.getBinaryContent("comics/sunstone.vol-3.cbz", function(err, data) {
+JSZipUtils.getBinaryContent("comics/sunstone.vol-4.cbz", function(err, data) {
 	var fileblob = data;
 	JSZip.loadAsync(fileblob).then(function(cbz) {
 		$(document).on('keydown', function (e) {
