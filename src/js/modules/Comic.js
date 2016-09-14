@@ -1,48 +1,35 @@
-export {Comic as default};
-
 import $ from 'jquery';
 import JSZip from 'jszip';
 import JSZipUtils from 'jszip-utils';
 
-class Comic {
-	constructor(path) {
-		this._path = path;
+export class Comic {
+	constructor(cbz) {
+		this._cbz = cbz;
 		this._infos = undefined;
-		this._cbz = undefined;
-	}
-	load() {
-		return new Promise(function(resolve, reject) {
-			JSZipUtils.getBinaryContent(this._path, function(err, data) {
-				JSZip.loadAsync(data).then(function(cbz) {
-					this._cbz = cbz;
-					resolve(this);
-				}, function(error) {
-					reject(error)
-				});
-			});
-		});
-	}
+	};
 	infos() {
+		var comic = this;
 		return new Promise(function(resolve, reject) {
-			if (this._infos !== undefined) {
-				resolve(this._infos);
+			if (comic._infos !== undefined) {
+				resolve(comic._infos);
 			} else {
-				this._cbz.file('ComicInfo.xml').async('string').then(function(xml) {
-					this._infos = {};
+				comic._cbz.file('ComicInfo.xml').async('string').then(function(xml) {
+					comic._infos = {};
 					var xmlinfos = $.parseXML(xml);
 					var $xmlinfos = $(xmlinfos);
-					this._infos.title = $xmlinfos.find('Series').text();
-					this._infos.summary = $xmlinfos.find('Summary').text();
-					resolve(this._infos);
+					comic._infos.title = $xmlinfos.find('Series').text();
+					comic._infos.summary = $xmlinfos.find('Summary').text();
+					resolve(comic._infos);
 				}, function(error) {
 					reject(error);
 				});
 			}
 		});
-	}
+	};
 	strip(pagenumber) {
+		var comic = this;
 		return new Promise(function(resolve, reject) {
-			var strips = this._cbz.file(/[0-9]+/);
+			var strips = comic._cbz.file(/[0-9]+/);
 			if (pagenumber < 0 || pagenumber >= strips.length) {
 				reject(new Error('Invalid page number'));
 			}
@@ -64,5 +51,5 @@ class Comic {
 				});
 			}
 		});
-	}
+	};
 }

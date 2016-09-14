@@ -1,12 +1,10 @@
 import $ from 'jquery';
-import JSZip from 'jszip';
-import JSZipUtils from 'jszip-utils';
-import Comic from 'models/Comic.js';
+import {CBZLoader} from './modules/CBZLoader.js';
+import {Comic} from './modules/Comic.js';
 
-var comic = new Comic("comics/sunstone.vol-4.cbz");
 
 $(document).ready(function() {
-var $progress = $('#content #progressbar');
+// var $progress = $('#content #progressbar');
 var $strip = $('#strip');
 var $metadata = $('#metadata');
 var $showhide = $('#show-hide');
@@ -26,32 +24,17 @@ $hide.click(function() {
 	$show.show();
 	$hide.hide();
 });
-var updateProgressBar = function (meta) {
-	var percent = meta.percent.toFixed(2);
-	$progress.find('.progress-bar')
-		.data('aria-valuenow', percent)
-		.width(percent + "%");
-	if (percent < 100) {
-		$progress.show();
-	} else {
-		$progress.hide();
-	}
-};
-var loadStrip = function (file, pageid) {
-	var $img = $strip.find('#' + pageid + ' > img');
-	$img.attr('alt', file.name);
-	if (JSZip.support.blob && URL.createObjectURL) {
-		file.async('blob', updateProgressBar).then(function (blob) {
-			var url = URL.createObjectURL(blob);
-			$img.attr('src', url);
-		});
-	} else {
-		// No support of blob, fallback to base64 encoding of the file
-		file.async('base64', updateProgressBar).then(function(base64) {
-			$img.attr('src', 'data:image/jpeg;base64,' + base64);
-		});
-	}
-};
+// var updateProgressBar = function (meta) {
+// 	var percent = meta.percent.toFixed(2);
+// 	$progress.find('.progress-bar')
+// 		.data('aria-valuenow', percent)
+// 		.width(percent + "%");
+// 	if (percent < 100) {
+// 		$progress.show();
+// 	} else {
+// 		$progress.hide();
+// 	}
+// };
 var showPageNumber = function () {
 	var $pagenumber = $('#pagenumber');
 	var $currentpage = $('#current-page');
@@ -74,22 +57,22 @@ var showPercentage = function (percentage) {
 	};
 	setTimeout(fades, 1600);
 };
-var loadStrips = function (cbz, pagenumber) {
-	var files = cbz.file(/[0-9]+/);
-	if (pagenumber < 0 || pagenumber >= files.length) {
-		return;
-	} else {
-		loadStrip(files[pagenumber], 'current-page');
-		$('#current-page').data('pagenumber', pagenumber).data('pages', files.length);
+var loadStrips = function (comic, pagenumber) {
+		comic.strip(pagenumber).then(function(imgsrc) {
+			var $img = $strip.find('#current-page > img');
+			$img.attr('src', imgsrc);
+		});
+		comic.strip(pagenumber-1).then(function(imgsrc) {
+			var $img = $strip.find('#previous-page > img');
+			$img.attr('src', imgsrc);
+		});
+		comic.strip(pagenumber+1).then(function(imgsrc) {
+			var $img = $strip.find('#next-page > img');
+			$img.attr('src', imgsrc);
+		});
+		$('#current-page').data('pagenumber', pagenumber).data('pages', 1000);
 		$('#previous-page > img').attr('src', '');
 		$('#next-page > img').attr('src', '');
-		if (pagenumber > 0) {
-			loadStrip(files[pagenumber-1], 'previous-page');
-		}
-		if (pagenumber < files.length - 1) {
-			loadStrip(files[pagenumber+1], 'next-page');
-		}
-	}
 };
 var zoom = function () {
 	var $page = $('#current-page');
@@ -124,35 +107,26 @@ var zoom = function () {
 		$strip.css('object-position', objectPosition.join(' '));
 	});
 };
-JSZipUtils.getBinaryContent("comics/sunstone.vol-4.cbz", function(err, data) {
-	var fileblob = data;
-	JSZip.loadAsync(fileblob).then(function(cbz) {
+	CBZLoader.load("comics/sunstone.vol-4.cbz").then(function(cbz) {
+		var comic = new Comic(cbz);
+		loadStrips(comic, 0);
 		$(document).on('keydown', function (e) {
 			var pagenumber = parseInt($('#current-page').data('pagenumber'));
 			if (e.key === 'ArrowLeft' || e.key === 'h') {
-				loadStrips(cbz, pagenumber-1);
+				loadStrips(comic, pagenumber-1);
 				showPageNumber();
 			} else if (e.key === 'ArrowRight' || e.key === 'l') {
-				loadStrips(cbz, pagenumber+1);
+				loadStrips(comic, pagenumber+1);
 				showPageNumber();
 			} else if (e.key === ' ') {
 				showPageNumber();
 				zoom();
 			}
 		});
-		cbz.file("ComicInfo.xml").async("string").then(function(xml) {
-			var comicinfo = $.parseXML(xml);
-			var $comicinfo = $(comicinfo);
-			var $series = $comicinfo.find('Series');
-			var $alternateseries = $comicinfo.find('AlternateSeries');
-			var $summary = $comicinfo.find('Summary');
+		comic.infos().then(function(infos) {
 			var $metadata = $('#metadata');
-			$metadata.find('#title').text($series.text());
-			$metadata.find('#subtitle').text($alternateseries.text());
-			$metadata.find('#summary').text($summary.text());
-			var pagenumber = parseInt($('#current-page').data('pagenumber'));
-			loadStrips(cbz, pagenumber);
+			$metadata.find('#title').text(infos.title);
+			$metadata.find('#summary').text(infos.summary);
 		});
 	});
-});
 });

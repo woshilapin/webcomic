@@ -20,7 +20,6 @@
     "bootstrap": "^3.3.6",
     "jquery": "^3.0.0",
     "jszip": "^3.0.0",
-    "requirejs": "^2.2.0",
     "jszip-utils": "^0.0.2",
     "font-awesome": "fontawesome#^4.6.3"
   }
