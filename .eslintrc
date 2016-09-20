@@ -10,5 +10,30 @@
 		"ecmaFeatures": {
 			"impliedStrict": true
 		}
+	},
+	"rules": {
+		"indent": [
+			"warn",
+			"tab"
+		],
+		"linebreak-style": [
+			"error",
+			"unix"
+		],
+		"quotes": [
+			"warn",
+			"single"
+		],
+		"semi": [
+			"warn",
+			"always"
+		],
+		"no-extra-semi": [
+			"off"
+		],
+		"no-unused-vars": [
+			"warn",
+			"always"
+		]
 	}
 }

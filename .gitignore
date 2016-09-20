@@ -1,5 +1,6 @@
 dist/
 node_modules/
 vendor/
+.eslintcache
 *.cbz
 *.swp
