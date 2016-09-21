@@ -13,8 +13,8 @@
     "build-js": "browserify --debug src/js/webcomix.js --outfile dist/js/webcomix.js",
     "watch-js": "watchify --verbose --debug src/js/webcomix.js --outfile dist/js/webcomix.js",
     "lint-js": "eslint --cache src/js || exit 0",
-    "build-css": "copyup 'src/css/webcomix.css' 'dist/'",
-    "watch-css": "nodemon --watch src/css/webcomix.css --exec 'npm run build-css'",
+    "build-css": "postcss --config .postcss.json",
+    "watch-css": "postcss --watch --config .postcss.json",
     "build-html": "copyup 'src/index.html' 'dist/'",
     "watch-html": "nodemon --watch src/index.html --exec 'npm run build-html'",
     "build-assets": "copyfiles 'comics/*' 'dist/'",
@@ -41,6 +41,7 @@
     "live-reload": "^1.1.0",
     "nodemon": "^1.10.2",
     "parallelshell": "^2.0.0",
+    "postcss-cli": "^2.6.0",
     "postcss-cssnext": "^2.7.0",
     "watchify": "^3.7.0"
   },
