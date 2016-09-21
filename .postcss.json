@@ -2,8 +2,8 @@
   "use": [
     "postcss-cssnext"
   ],
-  "input": "src/css/webcomix.css",
-  "output": "dist/css/webcomix.css",
+  "input": "src/style/webcomix.css",
+  "output": "dist/style/webcomix.css",
   "map": {
     "inline": true
   },

@@ -10,8 +10,8 @@
   },
   "scripts": {
     "start": "npm run build && parallelshell 'npm run watch' 'npm run serve' 'npm run live-reload'",
-    "build-js": "browserify --debug src/js/webcomix.js --outfile dist/js/webcomix.js",
-    "watch-js": "watchify --verbose --debug src/js/webcomix.js --outfile dist/js/webcomix.js",
+    "build-js": "browserify --debug src/lib/webcomix.js --outfile dist/lib/webcomix.js",
+    "watch-js": "watchify --verbose --debug src/lib/webcomix.js --outfile dist/lib/webcomix.js",
     "lint-js": "eslint --cache src/js || exit 0",
     "build-css": "postcss --config .postcss.json",
     "watch-css": "postcss --watch --config .postcss.json",
