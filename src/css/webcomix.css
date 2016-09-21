@@ -1,5 +1,5 @@
 body {
-	background: #F0F0F0;
+	background: #f0f0f0;
 	color: gray;
 	font-family: Helvetica;
 }
@@ -21,6 +21,7 @@ header > div {
 	bottom: 1ex;
 	left: 1ex;
 }
+
 #percentage {
 	bottom: 1ex;
 	right: 1ex;
@@ -30,7 +31,7 @@ header > div {
 	position: fixed;
 	top: 0;
 	right: 0;
-	background: #F0F0F0;
+	background: #f0f0f0;
 	padding: 1ex;
 	z-index: 100;
 }
@@ -47,19 +48,22 @@ header > div {
 	width: 25em;
 	height: 100%;
 	padding: 1em;
-	background: #F0F0F0;
+	background: #f0f0f0;
 	opacity: 0.95;
 	text-align: right;
 	z-index: 100;
 }
+
 #metadata #title {
 	font-size: 150%;
 	font-weight: bold;
 }
+
 #metadata #subtitle {
 	font-size: 125%;
 	margin-bottom: 1ex;
 }
+
 #metadata #summary {
 	font-family: Times;
 	text-align: justify;

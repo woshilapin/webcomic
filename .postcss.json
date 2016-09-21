@@ -1,5 +1,7 @@
 {
-  "use": ["postcss-cssnext"],
+  "use": [
+    "postcss-cssnext"
+  ],
   "input": "src/css/webcomix.css",
   "output": "dist/css/webcomix.css",
   "map": {
